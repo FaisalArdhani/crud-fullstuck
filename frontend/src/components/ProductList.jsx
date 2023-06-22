@@ -11,8 +11,12 @@ const ProductList = () => {
     };
 
     const { data } = useSWR('products', fetcher)
-    if (!data) return <h2>Loading..</h2>
-
+    if (!data) return (
+        <section className="loading flex flex-col w-screen h-screen items-center justify-center">
+            <h1 className="font-bold text-2xl">Loading Data</h1>
+            <span className="w-24 h-24 mt-6 inline-block border-8 border-l-blue-600 border-t-blue-600 border-r-slate-300 border-b-slate-300 rounded-full animate-spin"></span>
+        </section>
+    )
     const deleteProduct = async (productID) => {
         await axios.delete(`http://localhost:5000/products/${productID}`);
         mutate('products')
